@@ -1,13 +1,18 @@
-<html>
-<head>
-<title>Login</title>
-<script src="login.js"></script>
-</head>
-<body>
-<form action="/login" method="post">
-<input type="text" name="username" placeholder="Username">
-<input type="password" name="password" placeholder="Password">
-<input type="submit" value="Login">
+<form action="login.js" method="post">
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <input type="checkbox" id="showPassword" onclick="showPassword()">
+  <label for="showPassword">Show Password</label>
+  <input type="submit" value="Login">
 </form>
-</body>
-</html>
+
+<script>
+function showPassword() {
+  var password = document.getElementById("password");
+  if (password.type === "password") {
+    password.type = "text";
+  } else {
+    password.type = "password";
+  }
+}
+</script>
