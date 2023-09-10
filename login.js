@@ -3,25 +3,17 @@ function login() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
 
-  // Make an API call to the server to check the username and password.
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/api/login");
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(JSON.stringify({
-    username: username,
-    password: password
-  }));
+  // Read the logins from the file.
+  var logins = require("fs").readFileSync("logins.txt").toString().split("\n");
 
-  // Wait for the response from the server.
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      // The login was successful.
-      var data = JSON.parse(xhr.responseText);
-      document.getElementById("coins").innerHTML = data.coins;
-      document.getElementById("shop").innerHTML = data.shop;
-    } else {
-      // The login was unsuccessful.
-      alert("Invalid username or password.");
+  // Check if the username and password entered by the user match a login in the file.
+  for (var i = 0; i < logins.length; i++) {
+    var login = logins[i].split(":");
+    if (username == login[0] && password == login[1]) {
+      return true;
     }
-  };
+  }
+
+  // The username and password do not match any login in the file.
+  return false;
 }
